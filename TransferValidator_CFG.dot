@@ -1,0 +1,44 @@
+digraph CFG {
+  rankdir=TB; nodesep=0.35; ranksep=0.45;
+  node [fontname="Helvetica", fontsize=11];
+  start [shape=oval, label="START\nvalidate(amount, from, to, balance)", style=filled, fillcolor="#e8f0fe"];
+  P1  [shape=diamond, label="P1\namount == null"];
+  P2  [shape=diamond, label="P2\namount.trim().isEmpty()"];
+  N1  [shape=box, label="N1: amount = new BigDecimal(text)"];
+  P3  [shape=diamond, label="P3\nNumberFormatException?"];
+  P4  [shape=diamond, label="P4\namount <= 0"];
+  P5  [shape=diamond, label="P5\nscale > 2"];
+  P6  [shape=diamond, label="P6\namount > MAX"];
+  P7  [shape=diamond, label="P7\nfrom == null"];
+  P8  [shape=diamond, label="P8\nfrom blank"];
+  P9  [shape=diamond, label="P9\nto == null"];
+  P10 [shape=diamond, label="P10\nto blank"];
+  P11 [shape=diamond, label="P11\nfrom.equals(to)"];
+  P12 [shape=diamond, label="P12\namount > balance"];
+  OK  [shape=box, style=filled, fillcolor="#d4edda", label="return OK"];
+  E1  [shape=box, style=filled, fillcolor="#f8d7da", label="return EMPTY_AMOUNT"];
+  E3  [shape=box, style=filled, fillcolor="#f8d7da", label="return NOT_NUMERIC"];
+  E4  [shape=box, style=filled, fillcolor="#f8d7da", label="return NON_POSITIVE"];
+  E5  [shape=box, style=filled, fillcolor="#f8d7da", label="return TOO_MANY_DECIMALS"];
+  E6  [shape=box, style=filled, fillcolor="#f8d7da", label="return EXCEEDS_LIMIT"];
+  E7  [shape=box, style=filled, fillcolor="#f8d7da", label="return MISSING_ACCOUNT"];
+  E11 [shape=box, style=filled, fillcolor="#f8d7da", label="return SAME_ACCOUNT"];
+  E12 [shape=box, style=filled, fillcolor="#f8d7da", label="return INSUFFICIENT_FUNDS"];
+  end [shape=oval, label="END", style=filled, fillcolor="#e8f0fe"];
+
+  start -> P1;
+  P1 -> E1 [label="T"]; P1 -> P2 [label="F"];
+  P2 -> E1 [label="T"]; P2 -> N1 [label="F"];
+  N1 -> P3;
+  P3 -> E3 [label="T"]; P3 -> P4 [label="F"];
+  P4 -> E4 [label="T"]; P4 -> P5 [label="F"];
+  P5 -> E5 [label="T"]; P5 -> P6 [label="F"];
+  P6 -> E6 [label="T"]; P6 -> P7 [label="F"];
+  P7 -> E7 [label="T"]; P7 -> P8 [label="F"];
+  P8 -> E7 [label="T"]; P8 -> P9 [label="F"];
+  P9 -> E7 [label="T"]; P9 -> P10 [label="F"];
+  P10 -> E7 [label="T"]; P10 -> P11 [label="F"];
+  P11 -> E11 [label="T"]; P11 -> P12 [label="F"];
+  P12 -> E12 [label="T"]; P12 -> OK [label="F"];
+  E1 -> end; E3 -> end; E4 -> end; E5 -> end; E6 -> end; E7 -> end; E11 -> end; E12 -> end; OK -> end;
+}
