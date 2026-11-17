@@ -32,7 +32,7 @@ Automated UI test suite for the [ParaBank demo bank](https://parabank.parasoft.c
 - **Selenium** 4.25 (Selenium Manager downloads the browser driver automatically)
 - **JUnit** 5.10 (`@ParameterizedTest`, `@CsvSource`)
 - **Maven**
-- **Chrome** (default) or **Firefox**
+- **Eclipse IDE**
 
 ## 📁 Project structure
 ```
@@ -63,7 +63,6 @@ mvn test
 |---|---|
 | All tests | `mvn test` |
 | Headless | `mvn test -Dheadless=true` |
-| Firefox | `mvn test -Dbrowser=firefox` |
 | One class | `mvn test -Dtest=TransferFundsTest` |
 | Longer timeout | `mvn test -Dtimeout.seconds=30` |
 | Other base URL | `mvn test -Dbase.url=http://localhost:8080/parabank` |
